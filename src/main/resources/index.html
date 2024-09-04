@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Servidor Web Simple</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
 <h1>Servidor Web Simple</h1>
@@ -12,18 +12,17 @@
 <form id="imageForm">
     <h2>Obtener Imagen</h2>
     <label for="imageName">Introduce el nombre de la imagen (e.g., example.png):</label>
-    <input type="text" id="imageName" name="imageName" required>
+    <input id="imageName" name="imageName" required type="text">
     <button type="submit">Obtener Imagen</button>
     <br>
-    <img id="resultImage" alt="La imagen aparecerá aquí" style="display: none; width: 300px;">
+    <img alt="La imagen aparecerá aquí" id="resultImage" style="display: none; width: 300px;">
 </form>
-
 
 
 <form id="nameForm">
     <h2>Enviar Nombre (Petición POST)</h2>
     <label for="nameInput">Introduce tu nombre:</label>
-    <input type="text" id="nameInput" name="nameInput">
+    <input id="nameInput" name="nameInput" type="text">
     <button type="submit">Enviar</button>
     <div id="result"></div>
 </form>

@@ -17,14 +17,15 @@ import java.util.Map;
  * It operates as a singleton and listens for connections on a predefined port.
  */
 public class WebServer {
-    private static WebServer instance;
     private static final int PORT = 8080;
+    private static WebServer instance;
     private static Map<String, Method> services = new HashMap<>();
 
     /**
      * Private constructor to prevent instantiation.
      */
-    private WebServer() {}
+    private WebServer() {
+    }
 
     /**
      * Returns the singleton instance of {@code WebServer}.
@@ -92,7 +93,7 @@ public class WebServer {
      * Extracts query parameters, invokes the appropriate service method, and sends the response.
      *
      * @param path the request path
-     * @param out the output stream to write the response
+     * @param out  the output stream to write the response
      * @throws IOException if an I/O error occurs
      */
     private static void handleServiceRequest(String path, OutputStream out) throws IOException {
@@ -145,10 +146,10 @@ public class WebServer {
      * @param method the method to invoke
      * @param params a map of parameter names to values
      * @return the result of invoking the method
-     * @throws IllegalAccessException if the method is inaccessible
+     * @throws IllegalAccessException    if the method is inaccessible
      * @throws InvocationTargetException if the method throws an exception
-     * @throws InstantiationException if the class cannot be instantiated
-     * @throws NoSuchMethodException if the method cannot be found
+     * @throws InstantiationException    if the class cannot be instantiated
+     * @throws NoSuchMethodException     if the method cannot be found
      */
     private static Object invokeMethodWithParams(Method method, Map<String, String> params)
             throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
@@ -197,7 +198,7 @@ public class WebServer {
      * Handles requests for static files by serving them from the configured static files directory.
      *
      * @param path the request path
-     * @param out the output stream to write the response
+     * @param out  the output stream to write the response
      * @throws IOException if an I/O error occurs
      */
     private static void handleStaticFileRequest(String path, OutputStream out) throws IOException {
@@ -219,10 +220,10 @@ public class WebServer {
     /**
      * Sends an HTTP response to the client.
      *
-     * @param out the output stream to write the response
-     * @param status the HTTP status code and message
+     * @param out         the output stream to write the response
+     * @param status      the HTTP status code and message
      * @param contentType the MIME type of the response content
-     * @param body the response body as a byte array
+     * @param body        the response body as a byte array
      * @throws IOException if an I/O error occurs
      */
     private static void sendResponse(OutputStream out, String status, String contentType, byte[] body) throws IOException {

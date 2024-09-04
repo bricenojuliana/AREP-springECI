@@ -93,7 +93,7 @@ public class HelloService {
      * parameters from the request and returns the result of raising the base to the power of the exponent.
      * </p>
      *
-     * @param base the base value.
+     * @param base     the base value.
      * @param exponent the exponent value.
      * @return a string representation of the result of {@code base} raised to {@code exponent}.
      */
@@ -101,4 +101,6 @@ public class HelloService {
     public static String pow(@RequestParam("base") double base, @RequestParam("exponent") double exponent) {
         return "Pow: " + Math.pow(base, exponent);
     }
+
+
 }
