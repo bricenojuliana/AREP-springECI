@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servidor Web Simple</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Servidor Web Simple</h1>
+
+<form id="imageForm">
+    <h2>Obtener Imagen</h2>
+    <label for="imageName">Introduce el nombre de la imagen (e.g., example.png):</label>
+    <input type="text" id="imageName" name="imageName" required>
+    <button type="submit">Obtener Imagen</button>
+    <br>
+    <img id="resultImage" alt="La imagen aparecerá aquí" style="display: none; width: 300px;">
+</form>
+
+
+
+<form id="nameForm">
+    <h2>Enviar Nombre (Petición POST)</h2>
+    <label for="nameInput">Introduce tu nombre:</label>
+    <input type="text" id="nameInput" name="nameInput">
+    <button type="submit">Enviar</button>
+    <div id="result"></div>
+</form>
+
+<div class="pi-section">
+    <h2>Valor de PI</h2>
+    <button id="piButton">Mostrar Valor de PI</button>
+    <div id="piValue"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

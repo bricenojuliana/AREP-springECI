@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"co.edu.escuelaing"},{"l":"co.edu.escuelaing.application"},{"l":"co.edu.escuelaing.framework"},{"l":"co.edu.escuelaing.framework.annotations"},{"l":"reflexionlab"}];updateSearchResults();
