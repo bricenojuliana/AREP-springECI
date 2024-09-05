@@ -1,8 +1,10 @@
 package co.edu.escuelaing.framework;
 
 import co.edu.escuelaing.framework.annotations.GetMapping;
+import co.edu.escuelaing.framework.annotations.RequestMapping;
 import co.edu.escuelaing.framework.annotations.RestController;
 import co.edu.escuelaing.framework.annotations.SpringECIApplication;
+import co.edu.escuelaing.framework.enums.RequestMethod;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,39 +33,45 @@ public class SpringECI {
      */
     public static void main(String[] args) {
         try {
-            // Get the URL for the current class location
+            // Cargar clases en el paquete
             URL[] urls = {SpringECI.class.getProtectionDomain().getCodeSource().getLocation()};
             URLClassLoader classLoader = new URLClassLoader(urls);
-
-            // Scan for all classes in the specified package
             Set<Class<?>> classes = getClassesInPackage(classLoader, "co.edu.escuelaing");
 
-            // Map to store RESTful services
-            Map<String, Method> services = new HashMap<>();
+            // Mapa para almacenar rutas y métodos asociados
+            Map<String, Map<RequestMethod, Method>> services = new HashMap<>();
 
-            // Iterate over classes to find those annotated with @RestController and register services
+            // Escanear clases para encontrar controladores y métodos mapeados
             for (Class<?> c : classes) {
                 if (c.isAnnotationPresent(RestController.class)) {
                     for (Method method : c.getMethods()) {
+                        if (method.isAnnotationPresent(RequestMapping.class)) {
+                            RequestMapping mapping = method.getAnnotation(RequestMapping.class);
+                            String route = mapping.value();
+                            RequestMethod httpMethod = mapping.method();
+                            services.computeIfAbsent(route, k -> new HashMap<>()).put(httpMethod, method);
+                        }
                         if (method.isAnnotationPresent(GetMapping.class)) {
-                            String key = method.getAnnotation(GetMapping.class).value();
-                            services.put(key, method);
+                            GetMapping mapping = method.getAnnotation(GetMapping.class);
+                            String route = mapping.value();
+                            services.computeIfAbsent(route, k -> new HashMap<>()).put(RequestMethod.GET, method);
                         }
                     }
                 }
             }
 
-            // Initialize the web server and set the registered services
+            // Configurar los servicios en el servidor web
             WebServer.getInstance();
             WebServer.setServices(services);
 
-            // Start the application by invoking the main method of the class annotated with @SpringECIApplication
+
+            // Ejecutar la aplicación anotada con @SpringECIApplication
             for (Class<?> c : classes) {
                 if (c.isAnnotationPresent(SpringECIApplication.class)) {
                     Method mainMethod = c.getMethod("main", String[].class);
                     mainMethod.setAccessible(true);
-                    String[] argsMain = new String[0]; // Create an empty string array as arguments
-                    mainMethod.invoke(null, (Object) argsMain); // Pass the empty string array as arguments
+                    String[] argsMain = new String[0]; // Crear un arreglo vacío para argumentos
+                    mainMethod.invoke(null, (Object) argsMain); // Pasar el arreglo vacío como argumentos
                 }
             }
 
@@ -81,7 +89,7 @@ public class SpringECI {
      * @throws IOException            If an I/O error occurs while reading resources
      * @throws ClassNotFoundException If a class cannot be located
      */
-    private static Set<Class<?>> getClassesInPackage(URLClassLoader classLoader, String packageName) throws IOException, ClassNotFoundException {
+    static Set<Class<?>> getClassesInPackage(URLClassLoader classLoader, String packageName) throws IOException, ClassNotFoundException {
         Set<Class<?>> classes = new HashSet<>();
         String path = packageName.replace('.', '/');
         Enumeration<URL> resources = classLoader.getResources(path);
