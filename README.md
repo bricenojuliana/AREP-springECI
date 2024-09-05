@@ -168,27 +168,38 @@ To manually test the web functionality:
    This will return a dynamic greeting message. Test other endpoints to ensure the routes and services are working as expected.
 
    Other REST services available:
-   - Pi:  ![image](https://github.com/user-attachments/assets/02700e2a-c3af-490e-9c07-19d2a2fc3381)
+   - Pi:
+      ![image](https://github.com/user-attachments/assets/02700e2a-c3af-490e-9c07-19d2a2fc3381)
 
-   - UUID:  ![image](https://github.com/user-attachments/assets/af708bb2-e0b3-457c-b2ad-a0b6911eabc1)
+   - UUID:
+     ![image](https://github.com/user-attachments/assets/af708bb2-e0b3-457c-b2ad-a0b6911eabc1)
   
-   - Bye: ![image](https://github.com/user-attachments/assets/d525db8c-6c5d-4dc1-9ded-2866969380aa)
+   - Bye:
+     ![image](https://github.com/user-attachments/assets/d525db8c-6c5d-4dc1-9ded-2866969380aa)
 
-   - Random: ![image](https://github.com/user-attachments/assets/b5adb920-5971-460f-a34c-7d9dc2c68be8)
+   - Random:
+      ![image](https://github.com/user-attachments/assets/b5adb920-5971-460f-a34c-7d9dc2c68be8)
   
-   - Pow: ![image](https://github.com/user-attachments/assets/e7eab2d1-d753-422b-ad85-ceb2395446f4)
+   - Pow:
+     ![image](https://github.com/user-attachments/assets/e7eab2d1-d753-422b-ad85-ceb2395446f4)
   
-   - Greet: ![image](https://github.com/user-attachments/assets/b9d0c169-1932-4891-90f5-66b9a49ec8a5)
+   - Greet:
+     ![image](https://github.com/user-attachments/assets/b9d0c169-1932-4891-90f5-66b9a49ec8a5)
   
-   - Add: ![image](https://github.com/user-attachments/assets/7ba7bafe-18eb-4d8f-9529-031a4cc49852)
+   - Add:
+     ![image](https://github.com/user-attachments/assets/7ba7bafe-18eb-4d8f-9529-031a4cc49852)
   
-   - Subtract: ![image](https://github.com/user-attachments/assets/7d13f4ea-6000-49db-b100-7a652081b996)
+   - Subtract:
+     ![image](https://github.com/user-attachments/assets/7d13f4ea-6000-49db-b100-7a652081b996)
   
-   - Multiply: ![image](https://github.com/user-attachments/assets/5f9abfa0-bbdb-485a-9eea-37d801c12d8d)
+   - Multiply:
+     ![image](https://github.com/user-attachments/assets/5f9abfa0-bbdb-485a-9eea-37d801c12d8d)
   
-   - Divide: ![image](https://github.com/user-attachments/assets/c4bc7486-fa8d-4129-b36f-43553e0e00d9)
+   - Divide:
+     ![image](https://github.com/user-attachments/assets/c4bc7486-fa8d-4129-b36f-43553e0e00d9)
   
-   - Sqrt: ![image](https://github.com/user-attachments/assets/0ab5da4f-b203-4648-b934-c2de85baedec)
+   - Sqrt:
+     ![image](https://github.com/user-attachments/assets/0ab5da4f-b203-4648-b934-c2de85baedec)
 
   Static service available on http://localhost:8080/ or http://localhost:8080/index.html
   ![image](https://github.com/user-attachments/assets/a030ba54-a171-4fb4-b609-7ac9aa8407fd)
