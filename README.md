@@ -278,7 +278,11 @@ public class GreetingController {
 4. **Access Services**:
    - Visit `http://localhost:8080/greet?name=YourName` to see the greeting.
    - Visit `http://localhost:8080/welcome?name=YourName` to see the welcome message.
+  
+     
+## Documentation
 
+For detailed information on the framework, refer to the [SpringECI Documentation](main/doc/index.html).
 
 ## Acknowledgments
 
