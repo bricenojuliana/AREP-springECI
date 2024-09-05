@@ -17,31 +17,36 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * The SpringECI class is a custom lightweight framework that mimics some functionality of
- * popular frameworks like Spring. It automatically discovers and loads classes annotated
- * with specific annotations such as {@link RestController}, {@link GetMapping}, and {@link SpringECIApplication}.
- * The framework registers services defined in the controllers and starts the application.
+ * {@code SpringECI} is a custom lightweight framework that provides functionalities similar to popular frameworks
+ * like Spring. It is responsible for discovering and loading classes annotated with specific annotations
+ * (e.g., {@link RestController}, {@link GetMapping}, {@link SpringECIApplication}), registering RESTful services,
+ * and starting the application.
  */
 public class SpringECI {
 
     /**
-     * The entry point of the SpringECI framework. This method initializes the framework, scans
-     * the specified package for classes with the appropriate annotations, registers RESTful
-     * services, and starts the web server.
+     * The entry point of the SpringECI framework. This method initializes the framework by performing the following:
+     * <ul>
+     * <li>Loading classes from the specified package.</li>
+     * <li>Scanning for classes with the {@link RestController} annotation and methods with {@link RequestMapping}
+     * or {@link GetMapping} annotations.</li>
+     * <li>Registering RESTful services in the web server.</li>
+     * <li>Executing the {@code main} method of the class annotated with {@link SpringECIApplication}.</li>
+     * </ul>
      *
-     * @param args Command line arguments
+     * @param args Command line arguments passed to the application.
      */
     public static void main(String[] args) {
         try {
-            // Cargar clases en el paquete
+            // Load classes from the package
             URL[] urls = {SpringECI.class.getProtectionDomain().getCodeSource().getLocation()};
             URLClassLoader classLoader = new URLClassLoader(urls);
             Set<Class<?>> classes = getClassesInPackage(classLoader, "co.edu.escuelaing");
 
-            // Mapa para almacenar rutas y métodos asociados
+            // Map to store routes and associated methods
             Map<String, Map<RequestMethod, Method>> services = new HashMap<>();
 
-            // Escanear clases para encontrar controladores y métodos mapeados
+            // Scan classes to find controllers and mapped methods
             for (Class<?> c : classes) {
                 if (c.isAnnotationPresent(RestController.class)) {
                     for (Method method : c.getMethods()) {
@@ -60,18 +65,18 @@ public class SpringECI {
                 }
             }
 
-            // Configurar los servicios en el servidor web
+            // Configure services in the web server
             WebServer.getInstance();
             WebServer.setServices(services);
 
 
-            // Ejecutar la aplicación anotada con @SpringECIApplication
+            // Execute the application annotated with @SpringECIApplication
             for (Class<?> c : classes) {
                 if (c.isAnnotationPresent(SpringECIApplication.class)) {
                     Method mainMethod = c.getMethod("main", String[].class);
                     mainMethod.setAccessible(true);
-                    String[] argsMain = new String[0]; // Crear un arreglo vacío para argumentos
-                    mainMethod.invoke(null, (Object) argsMain); // Pasar el arreglo vacío como argumentos
+                    String[] argsMain = new String[0]; // Create an empty array for arguments
+                    mainMethod.invoke(null, (Object) argsMain); // Pass the empty array as arguments
                 }
             }
 
@@ -82,12 +87,13 @@ public class SpringECI {
 
     /**
      * Scans the specified package for all classes and returns a set of those classes.
+     * The method handles both JAR files and file system directories.
      *
-     * @param classLoader The class loader used to load the classes
-     * @param packageName The package name to scan for classes
-     * @return A set of all classes found in the specified package
-     * @throws IOException            If an I/O error occurs while reading resources
-     * @throws ClassNotFoundException If a class cannot be located
+     * @param classLoader The class loader used to load the classes.
+     * @param packageName The package name to scan for classes.
+     * @return A set of all classes found in the specified package.
+     * @throws IOException            If an I/O error occurs while reading resources.
+     * @throws ClassNotFoundException If a class cannot be located.
      */
     static Set<Class<?>> getClassesInPackage(URLClassLoader classLoader, String packageName) throws IOException, ClassNotFoundException {
         Set<Class<?>> classes = new HashSet<>();

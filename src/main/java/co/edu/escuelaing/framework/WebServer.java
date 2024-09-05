@@ -12,6 +12,11 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The WebServer class represents a custom web server that handles HTTP requests, serves static files,
+ * and dispatches requests to registered services based on specified routes and methods.
+ * It is a singleton class that manages the server lifecycle and request handling.
+ */
 public class WebServer {
     private static final int PORT = 8080;
     private static WebServer instance;
@@ -20,6 +25,11 @@ public class WebServer {
     private WebServer() {
     }
 
+    /**
+     * Returns the singleton instance of the WebServer.
+     *
+     * @return The singleton instance of WebServer
+     */
     public static WebServer getInstance() {
         if (instance == null) {
             instance = new WebServer();
@@ -27,10 +37,18 @@ public class WebServer {
         return instance;
     }
 
+    /**
+     * Sets the services map with routes and associated methods.
+     *
+     * @param services Map of routes to HTTP methods and their corresponding methods
+     */
     public static void setServices(Map<String, Map<RequestMethod, Method>> services) {
         WebServer.services = services;
     }
 
+    /**
+     * Starts the web server and listens for incoming client connections on the specified port.
+     */
     public static void startServer() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Listening on port " + PORT);
@@ -45,6 +63,12 @@ public class WebServer {
         }
     }
 
+    /**
+     * Handles incoming HTTP requests, routing them to either service handlers or static file handlers.
+     *
+     * @param clientSocket The socket connected to the client
+     * @throws IOException If an I/O error occurs while reading from or writing to the socket
+     */
     private static void handleRequest(Socket clientSocket) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         OutputStream out = clientSocket.getOutputStream();
@@ -63,6 +87,14 @@ public class WebServer {
         }
     }
 
+    /**
+     * Handles requests to registered services by dispatching to the appropriate method.
+     *
+     * @param path        The request path
+     * @param method      The HTTP method (GET, POST, etc.)
+     * @param out         The output stream to write the response to
+     * @throws IOException If an I/O error occurs while sending the response
+     */
     static void handleServiceRequest(String path, String method, OutputStream out) throws IOException {
         String[] parts = path.substring("/App".length()).split("\\?");
         String servicePath = parts[0];
@@ -88,6 +120,12 @@ public class WebServer {
         }
     }
 
+    /**
+     * Parses query parameters from a query string.
+     *
+     * @param queryString The query string to parse
+     * @return A map of parameter names to values
+     */
     static Map<String, String> parseQueryParams(String queryString) {
         Map<String, String> params = new HashMap<>();
         if (queryString != null && !queryString.isEmpty()) {
@@ -102,6 +140,17 @@ public class WebServer {
         return params;
     }
 
+    /**
+     * Invokes a service method with the provided query parameters.
+     *
+     * @param method The method to invoke
+     * @param params The query parameters to pass to the method
+     * @return The result of the method invocation
+     * @throws IllegalAccessException If the method cannot be accessed
+     * @throws InvocationTargetException If an exception is thrown by the method
+     * @throws InstantiationException If the method's declaring class cannot be instantiated
+     * @throws NoSuchMethodException If the method cannot be found
+     */
     static Object invokeMethodWithParams(Method method, Map<String, String> params)
             throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
         Class<?>[] parameterTypes = method.getParameterTypes();
@@ -147,6 +196,13 @@ public class WebServer {
     }
 
 
+    /**
+     * Handles requests for static files (e.g., HTML, CSS, JS) by serving the requested file from the file system.
+     *
+     * @param path The request path
+     * @param out  The output stream to write the response to
+     * @throws IOException If an I/O error occurs while reading the file or sending the response
+     */
     static void handleStaticFileRequest(String path, OutputStream out) throws IOException {
         if ("/".equals(path)) {
             path = "/index.html";
@@ -163,6 +219,15 @@ public class WebServer {
         }
     }
 
+    /**
+     * Sends an HTTP response to the client.
+     *
+     * @param out        The output stream to write the response to
+     * @param status     The HTTP status line (e.g., "200 OK")
+     * @param contentType The MIME type of the content (e.g., "text/html")
+     * @param body       The response body as a byte array
+     * @throws IOException If an I/O error occurs while writing the response
+     */
     static void sendResponse(OutputStream out, String status, String contentType, byte[] body) throws IOException {
         try (PrintWriter writer = new PrintWriter(out, true)) {
             writer.println("HTTP/1.1 " + status);
@@ -175,6 +240,12 @@ public class WebServer {
         }
     }
 
+    /**
+     * Determines the MIME type of a file based on its extension.
+     *
+     * @param filePath The path to the file
+     * @return The MIME type of the file
+     */
     private static String getContentType(String filePath) {
         if (filePath.endsWith(".html"))
             return "text/html";
@@ -189,6 +260,11 @@ public class WebServer {
         return "text/plain";
     }
 
+    /**
+     * Returns the map of registered services.
+     *
+     * @return The map of services
+     */
     public static Map<String, Map<RequestMethod, Method>> getServices() {
         return services;
     }
