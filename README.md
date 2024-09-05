@@ -282,7 +282,7 @@ public class GreetingController {
      
 ## Documentation
 
-For detailed information on the framework, refer to the [SpringECI Documentation](doc/index.html).
+For detailed information on the framework, refer to the [SpringECI Documentation](docs/index.html).
 
 ## Acknowledgments
 
