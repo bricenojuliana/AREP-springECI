@@ -62,31 +62,51 @@ C:.
 │   │   │           │       App.java
 │   │   │           │       CalculatorService.java
 │   │   │           │       HelloService.java
+│   │   │           │
 │   │   │           └───framework
 │   │   │               │   FrameworkConfig.java
 │   │   │               │   SpringECI.java
 │   │   │               │   WebServer.java
+│   │   │               │
 │   │   │               ├───annotations
 │   │   │               │       GetMapping.java
 │   │   │               │       RequestMapping.java
 │   │   │               │       RequestParam.java
 │   │   │               │       RestController.java
 │   │   │               │       SpringECIApplication.java
+│   │   │               │
 │   │   │               └───enums
 │   │   │                       RequestMethod.java
+│   │   │
+│   │   └───reflexionlab
+│   │           ClassToBeTested.java
+│   │           JUnitECI.java
+│   │           MainExecutor.java
+│   │           Reflexion.java
+│   │           Test.java
+│   │
 │   └───resources
+│           cocora.jpg
+│           cristales.jpeg
+│           example.png
+│           guatavita.jpg
 │           index.html
+│           la-conejera.jpg
 │           script.js
 │           styles.css
+│           villa-de-leyva.jpeg
+│
 └───test
     └───java
         └───co
             └───edu
                 └───escuelaing
                     │   SpringECITest.java
+                    │
                     ├───application
                     │       CalculatorServiceTest.java
                     │       HelloServiceTest.java
+                    │
                     └───framework
                             TestService.java
                             WebServerTest.java
