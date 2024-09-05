@@ -290,4 +290,4 @@ This project was developed as a hands-on exercise to learn about building web se
 
 ## Author
 
-- **[Your Name]** - Developer of the Java Web Server and IoC Framework.
+- **Juliana Briceño** - Developer of the Java Web Server and IoC Framework.
